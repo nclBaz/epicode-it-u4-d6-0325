@@ -2,8 +2,12 @@ import entities.Student;
 import entities.StudentType;
 import exceptions.NumberLessThanZeroException;
 import exceptions.StringNotValidException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class Main {
+	private static Logger logger = LoggerFactory.getLogger(Main.class);
+
 	public static void main(String[] args) {
 
 		// -------------------------------------------- ERRORS ---------------------------------------------
@@ -84,6 +88,31 @@ public class Main {
 		} catch (Exception ex) { // Questo è un catch "polimorfico" nel senso che può catturare tutti i tipi di eccezione
 			System.err.println(ex.getMessage());
 		}
+
+//		Scanner sc = new Scanner(System.in);
+//
+//		int[] numbers2 = {0, 1, 2, 3};
+//		System.out.println("Inserisci un numero da 0 a 3");
+//		try {
+//			int i = sc.nextInt();
+//			System.out.println(5 / numbers2[i]);
+//		} catch (ArithmeticException ex) {
+//			System.out.println("Non si può dividere per zero!!");
+//		} catch (InputMismatchException ex) {
+//			System.out.println("Non hai inserito un numero!");
+//		} catch (Exception ex) {
+//			System.out.println("Errore generico");
+//		} finally {
+//			sc.close();
+//			// Non importa se è andato tutto bene o c'è stata un'eccezione, il blocco finally viene eseguito sempre
+//			// Quindi è utile (non obbligatorio) in tutte quelle situazioni in cui è bene ricordarsi di rilasciare delle risorse come chiudere
+//			// uno scanner aperto o terminare una connessione ad un db
+//		}
+
+		logger.info("Questo è un messaggio informativo");
+		logger.error("Questo è un messaggio di errore");
+
+
 	}
 
 
