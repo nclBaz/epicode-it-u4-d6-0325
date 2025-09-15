@@ -1,3 +1,8 @@
+import entities.Student;
+import entities.StudentType;
+import exceptions.NumberLessThanZeroException;
+import exceptions.StringNotValidException;
+
 public class Main {
 	public static void main(String[] args) {
 
@@ -46,16 +51,50 @@ public class Main {
 		// try-catch
 
 		try {
-			Thread.sleep(10000);
+			Thread.sleep(1000);
 		} catch (InterruptedException e) {
 			throw new RuntimeException(e);
 		}
 
+
+		Student aldo = new Student("Aldo", "Baglio", true, StudentType.BACKEND);
+
+		try {
+			aldo.setName("A");
+		} catch (StringNotValidException e) {
+			// throw new RuntimeException(e); // Attenzione alla soluzione proposta da Intellij!
+			// Qua di base propone di inserire dentro il catch il lancio di una nuova eccezione
+			// che quindi non verrà gestita da nessuno e l'applicazione crasherà!
+			System.err.println(e.getMessage());
+		}
+
+
 		System.out.println("CIAO");
+
+
+		// ------------------------------------------------ TRY-CATCH -------------------------------------------
+		try {
+			aldo.setName("A");
+		} catch (StringNotValidException | ArrayIndexOutOfBoundsException ex) {
+			// Catch multi-eccezione, cioè mi permette di gestire 2 o più eccezioni alla stessa maniera
+			System.out.println("inviata un'email con errore a Donald J.Trump");
+		} catch (ArithmeticException ex) {
+			// Concatenando più catch differenti ho la possibilità di gestire eccezioni diverse in maniere diverse
+			System.out.println("inviata un'email con errore a Elon Musk");
+		} catch (Exception ex) { // Questo è un catch "polimorfico" nel senso che può catturare tutti i tipi di eccezione
+			System.err.println(ex.getMessage());
+		}
 	}
 
 
 //	public static void print(String msg) {
 //		print(msg);
 //	}
+
+	public static void calculate(int number) {
+		if (number < 0) throw new NumberLessThanZeroException(number); // E' sempre bene all'interno dei nostri metodi, effettuare dei controlli
+		// di conformità dei parametri che ci vengono forniti. Se questi non soddisfano certi criteri, allora solitamente si lancia un'eccezione
+		// (custom o meno) in maniera tale da bloccare subito l'esecuzione di tale metodo
+		System.out.println("Risultato: " + (number * 10));
+	}
 }
